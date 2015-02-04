@@ -1,0 +1,130 @@
+<!-- Creas un html normal html5 de preferencia para emular la pagina instala el complemento ripple en chrome y ahi le das enable y te simula un dispositivo movil-->
+<!DOCTYPE html>
+<html>
+ 
+<head>
+    <meta charset="utf-8">
+    <!-- Esta linea es para que te detecte que es un movil -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Mi primera página</title>
+    <!-- Agrega los css y js de jquery mobile-->
+    <link rel="stylesheet" href="assets/css/jquery.mobile-1.4.5.min.css" />
+    <link rel="stylesheet" href="assets/css/jquery.mobile.structure-1.4.5.min.css" />
+    <link rel="stylesheet" href="assets/css/jquery.mobile.theme-1.4.5.min.css" />
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.mobile-1.4.5.min.js"></script>
+    <script type="text/javascript" src="cordova.js"></script>
+    <style type="text/css">
+        body {
+            background: linear-gradient( 45deg, #008080, #ffebcd);
+            background-repeat:repeat-y; 
+            background-position:center center;
+        }
+        .ui-page, .ui-content {
+           /* background: linear-gradient( 45deg, #008080, #ffebcd);*/
+           background-image: url("./assets/images/content5.jpg");
+            background-repeat:repeat; 
+            background-position:center center;
+        }
+        @media screen and (max-width: 600px) {
+            img {
+                width: 100%;
+                height: 100%;
+            }
+        }
+        @media screen and (max-width: 900px) {
+            img {
+                width: 100%;
+                height: auto;
+            }
+        }
+    </style>
+</head>
+ 
+<body > 
+ 
+<div data-role="page" id="inicio">
+ 
+    <div data-role="header" style="background:#77b538;">
+        <h1>Calculadora de Índice</h1>
+        <h1>de Masa Corporal</h1>
+    </div>
+    
+    <div data-role="content">   
+        <form id="formulario" >
+      
+                <label> Peso:  </label> 
+                <input type="number" id="peso" name="peso" required />
+      
+                <label> Altura: </label>
+                <input type="number" id="altura" name="altura" step="0.01" required />
+ 
+              <input type="submit" value="Calculo IMC">
+            </form>     
+    </div>
+     
+</div>
+ 
+<div data-role="page" id="home" >
+ 
+    <div data-role="header" style="background:#77b538;">
+        <h1>Bienvenido</h1>
+    </div>
+ 
+    <div data-role="content">   
+        <h2> Índice de Masa Corporal </h2>
+        <div id="resultado">
+            <b>Índice de masa corporal: </b> <input text="number" name="imc" id="imc" step="0.01" readonly/>
+            <span>Atendiendo al IMC, tiene: <b><input text="text" name="tiene" id="tiene" readonly/></b><span>
+                <br>
+            <img src="./assets/images/MasaCorporal.png" alt="Cuadro Informativo">
+        <div>
+        <form id="regresar" >
+              <input type="submit" value="Regresar">
+        </form>  
+    </div>
+ 
+</div>
+ <!-- Toño el de faby -> 951-157-56-75-->
+<script>
+
+$('#formulario').submit(function() { 
+    
+     
+    // recolecta los valores que inserto el usuario para calcular la masa corporal
+    var peso = $("#peso").val();
+    var altura = $("#altura").val();
+    var result = parseFloat(peso/(altura*altura));
+    var tiene;
+    if(result<18){
+        tiene = "Peso bajo";
+    }else if (result>=18 && result<=24.9) {
+        tiene = "Normal";
+    }else if (result>24.9 && result<=26.9) {
+        tiene = "Sobrepeso";
+    }else if (result>26.9 && result<=29.9) {
+        tiene = "Obesidad grado I";
+    }else if (result>29.9 && result<=39.9) {
+        tiene = "Obesidad grado II";
+    }else if (result>40) {
+        tiene = "Obesidad grado III";
+    };
+    $("#imc").val(result.toFixed(2));
+    $("#tiene").val(tiene);
+    
+    $.mobile.changePage("#home")
+    return false;
+    
+});
+
+$('#regresar').submit(function() { 
+    $.mobile.changePage("#inicio")
+    return false;
+    
+});
+    
+</script>
+ 
+</body>
+</html>
+</html>
